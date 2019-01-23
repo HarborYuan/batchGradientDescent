@@ -26,7 +26,7 @@ int main() {
     auto dz1 = ele_prod<double>(prod(trans(m2), dz2), ele_prod<double>(mA1, getM(mA1.size1(), mA1.size2(), 1) - mA1));
     auto dw1 = prod(dz1, trans(mInput));
     m1 -= ele_prod<double>(getM(dw1.size1(), dw1.size2(), 0.01), dw1);
-    m2 -= ele_prod<double>(getM(dw2.size1(), dw2.size2(), 0.01), dw1);
+    m2 -= ele_prod<double>(getM(dw2.size1(), dw2.size2(), 0.01), dw2);
     if (i % 10000 == 0)
       std::cout << mOut-mTarget << std::endl;
   }
