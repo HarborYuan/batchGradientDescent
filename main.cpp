@@ -25,10 +25,10 @@ int main() {
     auto dw2 = prod(dz2, trans(mA1));
     auto dz1 = ele_prod<double>(prod(trans(m2), dz2), ele_prod<double>(mA1, getM(mA1.size1(), mA1.size2(), 1) - mA1));
     auto dw1 = prod(dz1, trans(mInput));
-    m1 -= ele_prod<double>(getM(dw1.size1(), dw1.size2(), 0.01), dw1);
-    m2 -= ele_prod<double>(getM(dw2.size1(), dw2.size2(), 0.01), dw2);
+    m1 -= ele_prod<double>(getM(dw1.size1(), dw1.size2(), 0.05 / batch), dw1);
+    m2 -= ele_prod<double>(getM(dw2.size1(), dw2.size2(), 0.05 / batch), dw2);
     if (i % 10000 == 0)
-      std::cout << mOut-mTarget << std::endl;
+      print(mOut - mTarget);
   }
   return 0;
 }
@@ -65,4 +65,13 @@ boost::numeric::ublas::matrix<T> getM(unsigned long x,
       *iter2 = value;
     }
   return out;
+}
+
+void print(const boost::numeric::ublas::matrix<double> m) {
+  for (auto iter1 = m.begin1(); iter1 != m.end1(); iter1++) {
+    for (auto iter2 = iter1.begin(); iter2 != iter1.end(); iter2++) {
+      std::cout << *iter2 << ",";
+    }
+    std::cout << std::endl;
+  }
 }

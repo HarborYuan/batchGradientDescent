@@ -30,7 +30,7 @@ std::vector<double> vM2 = {
 };
 
 std::vector<double> vTarget = {
-    0.694639, 0.688256, 0.68442, 0.683872, 0.683324, 0.697002, 0.700624
+    0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5
 };
 
 template<typename T>
@@ -45,4 +45,5 @@ boost::numeric::ublas::matrix<T> getM(unsigned long x,
                                       unsigned long y,
                                       T value);
 
+void print(const boost::numeric::ublas::matrix<double> m);
 #endif //BATCHGRADIENTDESCENT_BGD_H
