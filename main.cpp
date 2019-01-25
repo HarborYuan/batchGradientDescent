@@ -15,21 +15,27 @@ int main() {
   boost::numeric::ublas::matrix<double> mTarget(paranum3, batch);
   std::copy(std::begin(vTarget), std::end(vTarget), mTarget.data().begin());
 
-  for (int i = 0; i != 1000000; i++) {
+//  for (int i = 0; i != 1000000; i++) {
     auto mZ1 = prod(m1, mInput);
     auto mA1 = sigmoid<double>(mZ1);
+    print(mA1);
     auto mZ2 = prod(m2, mA1);
     auto mOut = sigmoid<double>(mZ2);
+    print(mOut);
     // -----back propagation-------------
     auto dz2 = ele_prod<double>(mOut - mTarget, ele_prod<double>(mOut, getM(mOut.size1(), mOut.size2(), 1) - mOut));
+    print(dz2);
     auto dw2 = prod(dz2, trans(mA1));
+    print(dw2);
     auto dz1 = ele_prod<double>(prod(trans(m2), dz2), ele_prod<double>(mA1, getM(mA1.size1(), mA1.size2(), 1) - mA1));
+    print(dz1);
     auto dw1 = prod(dz1, trans(mInput));
+    print(dw1);
     m1 -= ele_prod<double>(getM(dw1.size1(), dw1.size2(), 0.05 / batch), dw1);
     m2 -= ele_prod<double>(getM(dw2.size1(), dw2.size2(), 0.05 / batch), dw2);
-    if (i % 10000 == 0)
-      print(mOut - mTarget);
-  }
+//    if (i % 10000 == 0)
+//      print(mOut - mTarget);
+//  }
   return 0;
 }
 
@@ -74,4 +80,5 @@ void print(const boost::numeric::ublas::matrix<double> m) {
     }
     std::cout << std::endl;
   }
+  std::cout<<std::endl;
 }
